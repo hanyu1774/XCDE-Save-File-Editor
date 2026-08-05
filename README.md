@@ -108,7 +108,7 @@ A backup copy of the save file is created automatically the first time it is loa
 ### How it is built
 Photino.NET provides the desktop window and the native OS webview (WebView2, WebKitGTK, or WKWebView depending on platform), so the interface itself is plain HTML, CSS, and JavaScript with no separate build step.
 
-The backend follows Flow Design, a a software design methodology built around small, single purpose Models, Flows, and Workflows. It is used for the main logic of this application. 
+The backend follows Flow Design, a software design methodology built around small, single purpose Models, Flows, and Workflows. It is used for the main logic of this application. 
 
 Item, weapon, armor, gem, crystal, arts, and skill names come from community documented BDAT table dumps of the game's internal databases, cross referenced against real save files to confirm the ID scheme and to disambiguate items that would otherwise share the same display name.
 
