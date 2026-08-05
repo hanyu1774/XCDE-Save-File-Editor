@@ -40,7 +40,17 @@ echo 'export DOTNET_CLI_TELEMETRY_OPTOUT=1' >> ~/.bashrc
 ```
 
 ## How to use it
+### Important notice
 **Please read the 'Needed dependencies' section first!**
+**Since certain things lack display names, you need to check out those two web pages, which have information about the BDAT tables in XCDE!**
+* https://xenobladedata.github.io/
+* https://xenoblade.github.io/xb1/bdat/index.html
+
+The game makes heavy use of what's called "BDAT" tables. This is where all "blueprints" and definitions for items are. The second link shows you a list of BDAT tables within `bdat_common`. Here, you can find for example item-related tables. 
+
+Why looking up BDAT tables? Since various things lack display names, you can use the IDs for certain items, if you want to add them to your save file.
+
+### How to run the project
 Currently, there is no executable binary published. You can however run the code by using the following commands. Then you can use the application.
 
 With a terminal/console, navigate to this project folder using `cd "path/to/project/"`. You need to be in the root of the project folder. Then run...
@@ -54,7 +64,7 @@ Afterwards, run...
 dotnet run --project XCDESaveEditor.Gui 
 ```
 
-This will launch the XCDE Save File Editor
+This will launch the XCDE Save File Editor.
 
 ## Work that needs to be done...
 
