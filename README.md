@@ -22,10 +22,19 @@ After installation, you can use the .NET 10 SDK for C# development and you can u
 By default, once you have the .NET SDK installed, telemetry is enabled. It can be disabled, either only for the current session or permanently. I will show you how to permanently disabled it.
 
 #### Windows
-Run the PowerShell terminal (in modern Windows 11 installations, the PowerShell profile is default once you start '(Windows) Terminal') and run the following command:
+Run the PowerShell terminal (in modern Windows 11 installations, the PowerShell profile is default once you start '(Windows) Terminal') and run the following command for your own user account:
 
 ```powershell
 [Environment]::SetEnvironmentVariable("DOTNET_CLI_TELEMETRY_OPTOUT", "1", "User")
+```
+
+If you want to disable it system-wide:
+```powershell
+[Environment]::SetEnvironmentVariable("DOTNET_CLI_TELEMETRY_OPTOUT", "1", "Machine")
+```
+After executing this system-wide setting: setting only works in your next terminal/console session. So either close your terminal/console after executing said command, then start a new session. Or run this command afterwards within the same terminal/console session:
+```powershell
+$env:DOTNET_CLI_TELEMETRY_OPTOUT = 1
 ```
 
 #### Linux
