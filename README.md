@@ -3,6 +3,8 @@
 
 This application is intended to edit your save file from Xenoblade Chronicles Definitive Edition. 
 
+***Does it work on Linux?*** Yes, it does!
+
 ## Current Status
 **This repo is a work of progress! It isn't entirely finished!**
 
@@ -103,4 +105,8 @@ Item, weapon, armor, gem, crystal, arts, and skill names come from community doc
 
 Because `XCDESave` is GPL-3.0 licensed and this project depends on it directly, distributing `XCDESaveEditor.Gui` as a combined work is subject to the same license.
 
+### What ist Photino.NET?
+It's basically a much more efficient and modern solution for building desktop apps. 
+
+In .NET when building desktop, you probably heard of WPF, WinForms, MAUI etc. as solutions for building desktop apps. Photino.NET isn't plagued by the XAML nonsense and dependency on outdated stuff from more than 10 years ago unlike WPF, WinForms and MAUI. Secondly, Photino.NET is much more resource-efficient and easier to use than the other alternatives. 
 
