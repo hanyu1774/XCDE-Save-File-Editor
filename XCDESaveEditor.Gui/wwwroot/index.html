@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>XCDE Save Editor</title>
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+<div class="app-shell">
+
+  <header class="topbar">
+    <div class="topbar-title">
+      <span class="topbar-mark">XCDE</span>
+      <span class="topbar-sep">/</span>
+      <span class="topbar-label">Save Editor</span>
+    </div>
+    <div class="topbar-file">
+      <span class="file-dot" id="fileDot"></span>
+      <span id="fileStatus">No file loaded</span>
+    </div>
+    <div class="topbar-actions">
+      <button id="btnOpen" class="btn btn-ghost">Open save file</button>
+      <button id="btnSaveAs" class="btn btn-ghost" disabled>Save as</button>
+      <button id="btnSave" class="btn btn-primary" disabled>Save</button>
+    </div>
+  </header>
+
+  <div class="app-body">
+    <nav class="sidebar">
+      <button class="nav-item active" data-panel="panel-party">
+        <span class="nav-index">01</span>Party &amp; Characters
+      </button>
+      <button class="nav-item" data-panel="panel-weapons">
+        <span class="nav-index">02</span>Weapons
+      </button>
+      <button class="nav-item" data-panel="panel-armor">
+        <span class="nav-index">03</span>Armor
+      </button>
+      <button class="nav-item" data-panel="panel-gems">
+        <span class="nav-index">04</span>Gemstones
+      </button>
+      <button class="nav-item" data-panel="panel-items">
+        <span class="nav-index">05</span>Other items
+      </button>
+      <button class="nav-item" data-panel="panel-money">
+        <span class="nav-index">06</span>Money
+      </button>
+      <div class="sidebar-footer">
+        <span class="sidebar-footer-label">Backup</span>
+        <span id="backupStatus" class="sidebar-footer-value">not created</span>
+      </div>
+    </nav>
+
+    <main class="content">
+      <div id="toast" class="toast" hidden></div>
+
+      <div id="emptyState" class="empty-state">
+        <p class="empty-state-title">No save file open</p>
+        <p class="empty-state-text">Open a bfsgame.sav file to start editing. A backup copy is created automatically next to it on first load.</p>
+        <button id="btnOpenEmpty" class="btn btn-primary">Open save file</button>
+      </div>
+
+      <div id="panels" class="panels" hidden>
+
+        <section id="panel-party" class="panel active">
+          <h1 class="panel-title">Party &amp; Characters</h1>
+          <p class="panel-hint">Add or remove characters from the active party, and edit level, AP, and arts for any of the 15 playable characters. Changing the party roster directly is powerful but not fully tested by the community, keep a backup handy.</p>
+
+          <div class="warning-box">
+            <strong>Careful with party membership.</strong> Adding or removing characters here edits the roster directly in the save file. Community testing has found this can occasionally cause crashes when opening the main menu if the resulting data is inconsistent. Save a backup copy before experimenting, and test in-game right after a change.
+          </div>
+
+          <div class="subsection">
+            <h2 class="subsection-title">Active party</h2>
+            <div id="partyRoster" class="chip-row"></div>
+            <div class="inline-form">
+              <select id="addCharacterSelect" class="input"></select>
+              <button id="btnAddCharacter" class="btn btn-secondary">Add to party</button>
+            </div>
+          </div>
+
+          <div class="subsection">
+            <h2 class="subsection-title">Character stats</h2>
+            <div class="inline-form">
+              <label class="field-label" for="statsCharacterSelect">Character</label>
+              <select id="statsCharacterSelect" class="input"></select>
+            </div>
+            <div id="characterStatsForm" class="stats-form"></div>
+          </div>
+        </section>
+
+        <section id="panel-weapons" class="panel">
+          <h1 class="panel-title">Weapons</h1>
+          <p class="panel-hint">Includes weapons that are normally unobtainable in game, such as leftover debug and test weapons. Entries without an official name are shown as "Unnamed #ID".</p>
+          <div id="weaponsEditor" class="equip-editor" data-category="weapon" data-boxsize="500"></div>
+        </section>
+
+        <section id="panel-armor" class="panel">
+          <h1 class="panel-title">Armor</h1>
+          <p class="panel-hint">Covers all five equipment slots, including pieces that are not normally obtainable in game.</p>
+          <div class="tab-row" id="armorTabs">
+            <button class="tab active" data-armor="headArmor">Head</button>
+            <button class="tab" data-armor="torsoArmor">Torso</button>
+            <button class="tab" data-armor="armArmor">Arm</button>
+            <button class="tab" data-armor="legArmor">Leg</button>
+            <button class="tab" data-armor="footArmor">Foot</button>
+          </div>
+          <div id="armorEditor" class="equip-editor" data-category="headArmor" data-boxsize="500"></div>
+        </section>
+
+        <section id="panel-gems" class="panel">
+          <h1 class="panel-title">Gemstones</h1>
+          <p class="panel-hint">Gems are socketed into weapons and armor. Crystals are the raw material gems are crafted from. Both share the same data shape here.</p>
+          <div class="tab-row" id="gemTabs">
+            <button class="tab active" data-gem="gem">Gems</button>
+            <button class="tab" data-gem="crystal">Crystals</button>
+          </div>
+          <div id="gemEditor" class="crystal-editor" data-category="gem"></div>
+        </section>
+
+        <section id="panel-items" class="panel">
+          <h1 class="panel-title">Other items</h1>
+          <p class="panel-hint">Collectables, materials, key items and arts manuals. Includes entries that are not normally obtainable in game.</p>
+          <div class="tab-row" id="itemTabs">
+            <button class="tab active" data-itemcat="collectable">Collectables</button>
+            <button class="tab" data-itemcat="material">Materials</button>
+            <button class="tab" data-itemcat="keyItem">Key items</button>
+            <button class="tab" data-itemcat="artsManual">Arts manuals</button>
+          </div>
+          <div id="itemEditor" class="item-editor" data-category="collectable"></div>
+        </section>
+
+        <section id="panel-money" class="panel">
+          <h1 class="panel-title">Money</h1>
+          <p class="panel-hint">Current gold amount and Noponstones, stored as plain numbers in the save file.</p>
+          <div class="inline-form">
+            <label class="field-label" for="moneyInput">Money</label>
+            <input id="moneyInput" class="input input-number" type="number" min="0" max="4294967295" step="1" />
+            <button id="btnSetMoney" class="btn btn-secondary">Update</button>
+          </div>
+          <div class="inline-form" style="margin-top: 14px;">
+            <label class="field-label" for="noponstonesInput">Noponstones</label>
+            <input id="noponstonesInput" class="input input-number" type="number" min="0" max="4294967295" step="1" />
+            <button id="btnSetNoponstones" class="btn btn-secondary">Update</button>
+          </div>
+        </section>
+
+      </div>
+    </main>
+  </div>
+</div>
+
+<script src="data/item_names.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

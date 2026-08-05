@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="XCDESave/XCDESave.csproj" />
+  <Project Path="XCDESaveEditor.Gui/XCDESaveEditor.Gui.csproj" />
+</Solution>
